@@ -1,10 +1,15 @@
 
-//DEPENDENCIES
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const PORT = 3003
 const mongoose = require('mongoose')
-//const cors = require('cors')
+
+const session = require('express-session')
+
+// const cors = require('cors')
+
+
 
 
 // middleware
@@ -20,6 +25,14 @@ app.use(express.json())
 // 		}
 // 	}
 // }
+
+//const corsOptions = {
+//     "origin": "http://localhost:3000",
+//     "methods": "GET,PUT,PATCH,POST,DELETE",
+//     "credentials" : true
+// }
+// app.use(cors(corsOptions))
+
 
 // app.use(cors(corsOptions))
 // set up connection with the DB
@@ -51,11 +64,38 @@ app.use('/luxuryliving', require('./controllers/carController'))
 // app.use('./luxuryliving', require('./controllers/carsController'))
 
 // USER middleware - George
-
-
+app.use(session({
+  secret:process.env.SECRET,
+  resave: false,
+  saveUninitiaized: false,
+}))
+// const isAuthenticated = (req, res, next) => {
+//     if (req.session.currentUser) {
+//         return next()
+//     } else {
+//         res.status(400).json({error:'Sign in to proceed'})
+//     }
+// }
+//
+// const isAdministrator = (req, res, next) => {
+//   if (req.session.currentUser.admin === true) {
+//       return next()
+//   } else {
+//     res.status(400).json({error:'Admin only'})
+//   }
+// }
 // CART middleware
 const cartController = require('./controllers/cartController')
 app.use('/cart', cartController)
+const usersControllers = require('./controllers/userController')
+app.use('/users', usersControllers)
+const sessionsControllers = require('./controllers/sessionsController')
+app.use('/sessions', sessionsControllers)
+
+
+// app.get('/', (req, res) => {
+//    currentUser: req.session.currentUser
+// })
 
 
 app.listen(PORT, () => {
