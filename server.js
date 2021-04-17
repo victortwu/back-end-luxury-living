@@ -1,9 +1,12 @@
+
 //DEPENDENCIES
 const express = require('express')
 const app = express()
 const PORT = 3003
 const mongoose = require('mongoose')
 //const cors = require('cors')
+
+
 // middleware
 app.use(express.json())
 // cors middleware
@@ -17,23 +20,45 @@ app.use(express.json())
 // 		}
 // 	}
 // }
+
 // app.use(cors(corsOptions))
 // set up connection with the DB
 mongoose.connect('mongodb://localhost:27017/luxurylivingDB',{
 	useNewUrlParser:true,
 	useUnifiedTopology: true,
-//   useFindAndModify: false
+
+  useFindAndModify: false
 });
+
+
+
+
 // set up listeners to monitor your database connection
 const db = mongoose.connection;
 db.once('open', ()=> console.log('DB connected...'));
 db.on('error', (err)=> console.log(err.message));
 db.on('disconnected', ()=> console.log('mongoose disconnected'));
+
 // This is index middleware -- Debbie's file?
 app.use('/luxuryliving', require('./controllers/carController'))
 // app.use('./luxuryliving', require('./controllers/carsController'))
 // USER middleware - George
 // CART middleware
+
+
+
+// This is index middleware -- Debbie's file?
+// app.use('./luxuryliving', require('./controllers/carsController'))
+
+// USER middleware - George
+
+
+// CART middleware
+const cartController = require('./controllers/cartController')
+app.use('/cart', cartController)
+
+
 app.listen(PORT, () => {
   console.log('Listening on port: ', PORT)
 })
+
