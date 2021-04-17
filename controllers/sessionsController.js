@@ -1,4 +1,5 @@
 const express = require('express')
+
 const session = express.Router()
 const bcrypt = require('bcrypt')
 const User = require('../models/usersModel')
@@ -46,3 +47,4 @@ session.get('/:id', (req, res) => {
 // })
 
 module.exports = session
+
