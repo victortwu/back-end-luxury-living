@@ -20,13 +20,14 @@ app.use(express.json())
 // }
 //
 // app.use(cors(corsOptions))
-
 // set up connection with the DB
 mongoose.connect('mongodb://localhost:27017/luxurylivingDB',{
 	useNewUrlParser:true,
 	useUnifiedTopology: true,
   useFindAndModify: false
 });
+
+
 
 // set up listeners to monitor your database connection
 const db = mongoose.connection;
@@ -44,9 +45,6 @@ db.on('disconnected', ()=> console.log('mongoose disconnected'));
 // CART middleware
 const cartController = require('./controllers/cartController')
 app.use('/cart', cartController)
-
-
-
 
 
 app.listen(PORT, () => {
