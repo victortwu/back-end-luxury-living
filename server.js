@@ -39,8 +39,8 @@ app.use(express.json())
 mongoose.connect('mongodb://localhost:27017/luxurylivingDB',{
 	useNewUrlParser:true,
 	useUnifiedTopology: true,
-
-  useFindAndModify: false
+	useFindAndModify: false,
+  	useCreateIndex: true
 });
 
 
