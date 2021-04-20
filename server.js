@@ -40,7 +40,7 @@ mongoose.connect('mongodb://localhost:27017/luxurylivingDB',{
 	useNewUrlParser:true,
 	useUnifiedTopology: true,
 	useFindAndModify: false,
-  	useCreateIndex: true
+  useCreateIndex: true
 });
 
 
