@@ -7,31 +7,32 @@ const mongoose = require('mongoose')
 
 const session = require('express-session')
 
-// const cors = require('cors')
+const cors = require('cors')
 
 
 
 
 // middleware
 app.use(express.json())
-// cors middleware
-// const whitelist = ['http://localhost:3000']
-// const corsOptions = {
-// 	origin: (origin, callback) => {
-// 		if (whitelist.indexOf(origin) !== -1) {
-// 			callback(null, true)
-// 		} else {
-// 			callback(new Error('Not allowed by CORS'))
-// 		}
-// 	}
-// }
 
-//const corsOptions = {
+//cors middleware
+const whitelist = ['http://localhost:3000']
+const corsOptions = {
+	origin: (origin, callback) => {
+		if (whitelist.indexOf(origin) !== -1) {
+			callback(null, true)
+		} else {
+			callback(new Error('Not allowed by CORS'))
+		}
+	}
+}
+
+// const corsOptions = {  //<--need a different variable name? or does this go above?
 //     "origin": "http://localhost:3000",
 //     "methods": "GET,PUT,PATCH,POST,DELETE",
 //     "credentials" : true
 // }
-// app.use(cors(corsOptions))
+app.use(cors(corsOptions))
 
 
 // app.use(cors(corsOptions))
@@ -39,8 +40,8 @@ app.use(express.json())
 mongoose.connect('mongodb://localhost:27017/luxurylivingDB',{
 	useNewUrlParser:true,
 	useUnifiedTopology: true,
-
-  useFindAndModify: false
+	useFindAndModify: false,
+	useCreateIndex: true
 });
 
 
@@ -52,20 +53,17 @@ db.once('open', ()=> console.log('DB connected...'));
 db.on('error', (err)=> console.log(err.message));
 db.on('disconnected', ()=> console.log('mongoose disconnected'));
 
-// This is index middleware -- Debbie's file?
-app.use('/luxuryliving', require('./controllers/carController'))
-// app.use('./luxuryliving', require('./controllers/carsController'))
-// USER middleware - George
-// CART middleware
 
 
 
-// This is index middleware -- Debbie's file?
-// app.use('./luxuryliving', require('./controllers/carsController'))
+
+
+
+
 
 // USER middleware - George
 app.use(session({
-  secret:process.env.SECRET,
+  secret: 'lamborghini',
   resave: false,
   saveUninitiaized: false,
 }))
@@ -84,11 +82,17 @@ app.use(session({
 //     res.status(400).json({error:'Admin only'})
 //   }
 // }
-// CART middleware
+
+//  middleware for routes
+const carController = require('./controllers/carController')
+app.use('/luxuryliving', carController)
+
 const cartController = require('./controllers/cartController')
 app.use('/cart', cartController)
+
 const usersControllers = require('./controllers/userController')
 app.use('/users', usersControllers)
+
 const sessionsControllers = require('./controllers/sessionsController')
 app.use('/sessions', sessionsControllers)
 
@@ -101,4 +105,3 @@ app.use('/sessions', sessionsControllers)
 app.listen(PORT, () => {
   console.log('Listening on port: ', PORT)
 })
-
