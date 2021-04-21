@@ -1,16 +1,11 @@
-
 require('dotenv').config()
 const express = require('express')
 const app = express()
 const PORT = 3003
 const mongoose = require('mongoose')
-
 const session = require('express-session')
 
 // const cors = require('cors')
-
-
-
 
 // middleware
 app.use(express.json())
@@ -39,8 +34,8 @@ app.use(express.json())
 mongoose.connect('mongodb://localhost:27017/luxurylivingDB',{
 	useNewUrlParser:true,
 	useUnifiedTopology: true,
-
-  useFindAndModify: false
+  useFindAndModify: false,
+	useCreateIndex: true
 });
 
 
@@ -101,4 +96,3 @@ app.use('/sessions', sessionsControllers)
 app.listen(PORT, () => {
   console.log('Listening on port: ', PORT)
 })
-
