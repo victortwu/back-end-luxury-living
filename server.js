@@ -60,7 +60,7 @@ db.on('disconnected', ()=> console.log('mongoose disconnected'));
 app.use(session({
   secret: process.env.SECRET,
   resave: false,
-  saveUninitiaized: false,
+  saveUninitialized: false,
 }))
 // const isAuthenticated = (req, res, next) => {
 //     if (req.session.currentUser) {
