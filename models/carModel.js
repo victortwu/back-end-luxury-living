@@ -8,7 +8,7 @@ const carSchema = new Schema({
     year: {type: Number},
     img: {type: String},
     price: {type: Number},
-    quantity: {type: Number},
+    likes: {type: Number, default: 0},
 })
 
 module.exports = model('car', carSchema)

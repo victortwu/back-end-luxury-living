@@ -12,7 +12,7 @@ car.get('/seed', (req, res) => {
 	    year: 2017,
 	    img: 'https://i.imgur.com/RAnOIVu.jpg',
 	    price: 4499999,
-	    quantity: 1,
+	    likes: 0,
 		},
 		{
 			make: 'Ferrari',
@@ -20,7 +20,7 @@ car.get('/seed', (req, res) => {
 	    year: 1990,
 	    img: 'https://i.imgur.com/L7m7KHd.jpg',
 	    price: 1199999,
-	    quantity: 1,
+	    likes: 0,
 		},
 		{
 			make: 'Ferrari',
@@ -28,7 +28,7 @@ car.get('/seed', (req, res) => {
 	    year: 1985,
 	    img: 'https://i.imgur.com/naDVBVP.jpg',
 	    price: 4999999,
-	    quantity: 1,
+	    likes: 0,
 		},
 		{
 			make: 'Ferrari',
@@ -36,7 +36,7 @@ car.get('/seed', (req, res) => {
 	    year: 2020,
 	    img: 'https://i.imgur.com/oHjC0Nh.jpg',
 	    price: 274999,
-	    quantity: 1,
+	    likes: 0,
 		},
 		{
 			make: 'Rolls Royce',
@@ -44,7 +44,7 @@ car.get('/seed', (req, res) => {
 	    year: 2017,
 	    img: 'https://i.imgur.com/0DQmQ4H.jpg',
 	    price: 12999999,
-	    quantity: 1,
+	    likes: 0,
 		},
 		{
 			make: 'Bentley',
@@ -52,7 +52,7 @@ car.get('/seed', (req, res) => {
 	    year: 2020,
 	    img: 'https://i.imgur.com/on1XA7K.jpg',
 	    price: 199999,
-	    quantity: 1,
+	    likes: 0,
 		},
 		{
 			make: 'Audi',
@@ -60,7 +60,7 @@ car.get('/seed', (req, res) => {
 	    year: 2012,
 	    img: 'https://i.imgur.com/KNHirdo.jpg',
 	    price: 4999999,
-	    quantity: 1,
+	    likes: 0,
 		},
 		{
 			make: 'Mercedes',
@@ -68,7 +68,7 @@ car.get('/seed', (req, res) => {
 	    year: 2020,
 	    img: 'https://i.imgur.com/d9QXhSQ.jpg',
 	    price: 164999,
-	    quantity: 1,
+	    likes: 0,
 		},
     {
       make: 'Porche',
@@ -76,7 +76,7 @@ car.get('/seed', (req, res) => {
       year: 2018,
       img: 'https://i.imgur.com/D7w1NSa.jpg',
       price: 144999,
-      quantity: 1,
+      likes: 0,
     },
     {
       make: 'Porche',
@@ -84,7 +84,7 @@ car.get('/seed', (req, res) => {
       year: 2006,
       img: 'https://i.imgur.com/UVaI26z.jpg',
       price: 599999,
-      quantity: 1,
+      likes: 0,
     },
 	], (err, data) => {
     if(err) {
@@ -138,6 +138,18 @@ car.delete('/:id', (req, res)=>{
     })
 })
 
+car.patch('/addlikes/:id', (req, res)=> {
+	carModel.findByIdAndUpdate(req.params.id, { $inc: {likes : 1}}, {new:true}, (error, updatedCar) => {
+		if(error){
+			res.status(400).json({error:error.message})
+		}
+		else{
+			res.status(200).json({
+				data: updatedCar
+			})
+		}
+	})
+})
 // UPDATE ROUTE
 car.put('/:id', (req, res)=>{
 
