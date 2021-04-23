@@ -58,7 +58,7 @@ db.on('disconnected', ()=> console.log('mongoose disconnected'));
 
 // USER middleware - George
 app.use(session({
-  secret: 'lamborghini',
+  secret: process.env.SECRET,
   resave: false,
   saveUninitiaized: false,
 }))
