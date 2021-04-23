@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
-const PORT = 3003
+const PORT = process.env.PORT
 const mongoose = require('mongoose')
 const session = require('express-session')
 
@@ -32,7 +32,8 @@ app.use(cors(corsOptions))
 
 // app.use(cors(corsOptions))
 // set up connection with the DB
-mongoose.connect('mongodb://localhost:27017/luxurylivingDB',{
+const mongoURI = process.env.MONGODBURI
+mongoose.connect(mongoURI,{
 	useNewUrlParser:true,
 	useUnifiedTopology: true,
 	useFindAndModify: false,
