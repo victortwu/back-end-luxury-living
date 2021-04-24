@@ -21,7 +21,6 @@ const corsOptions = {
 		}
 	}
 }
-
 // const corsOptions = {  //<--need a different variable name? or does this go above?
 //     "origin": "http://localhost:3000",
 //     "methods": "GET,PUT,PATCH,POST,DELETE",
