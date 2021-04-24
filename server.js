@@ -11,7 +11,7 @@ const cors = require('cors')
 app.use(express.json())
 
 //cors middleware
-const whitelist = ['http://localhost:3000']
+const whitelist = ['http://localhost:3000', process.env.BASEURL]
 const corsOptions = {
 	origin: (origin, callback) => {
 		if (whitelist.indexOf(origin) !== -1) {
