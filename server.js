@@ -29,7 +29,6 @@ const corsOptions = {
 // }
 app.use(cors(corsOptions))
 
-
 // app.use(cors(corsOptions))
 // set up connection with the DB
 const mongoURI = process.env.MONGODBURI
